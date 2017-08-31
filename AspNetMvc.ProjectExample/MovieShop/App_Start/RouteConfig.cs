@@ -23,11 +23,20 @@ namespace MovieShop
             //    new { year = @"\d{4}", month = @"\d{2}"});
 
             //What happens if we want to add a constraint where it says a range between 2015|2016?
-            routes.MapRoute(
-                "MoviesByReleaseDate",
-                "movies/released/{year}/{month}",
-                new { controller = "Movies", action = "ByReleaseDate" },
-                new { year = @"2015|2016", month = @"\d{2}" });
+            /**
+             * Some disadvantages of this approach that in the future become a mess, and because there are
+             * magic strings. So if we change action name, this is not going to work anymore.
+             * 
+             * To solve that, we are going to use ATTRIBUTE methods. Let's comment the implementation.
+             */
+            //routes.MapRoute(
+            //    "MoviesByReleaseDate",
+            //    "movies/released/{year}/{month}",
+            //    new { controller = "Movies", action = "ByReleaseDate" },
+            //    new { year = @"2015|2016", month = @"\d{2}" });
+
+            //Using Attribute Routes
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
                 name: "Default",
