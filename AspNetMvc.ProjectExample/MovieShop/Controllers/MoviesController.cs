@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MovieShop.Models;
+using MovieShop.ViewModel;
 
 namespace MovieShop.Controllers
 {
@@ -14,8 +15,24 @@ namespace MovieShop.Controllers
         {
             var movie = new Movie() { Name = "Shrek!" };
 
+            /**
+             * If i send the viewmodel information, it is not going to work because
+             * the view does model is MOVIE and it is not RandomMovieViewModel object.
+             */
+            var customers = new List<Customer>
+            {
+                new Customer { Name = "Customer 1" },
+                new Customer { Name = "Customer 2" }
+            };
+
+            var viewModel = new RandomMovieViewModel
+            {
+                Movie = movie,
+                Customers = customers
+            };
+
             //We can send the object to be rendered.
-            return View(movie);
+            return View(viewModel);
 
             //Another ways to return ActionResults
             //return new ViewResult(), and return type should be ViewResult this is a good practice
