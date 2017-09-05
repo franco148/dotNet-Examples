@@ -10,6 +10,8 @@ namespace MovieShop.Controllers
 {
     public class MoviesController : Controller
     {
+        #region Controller Members
+
         // GET: Movies/Ramdom
         public ActionResult Ramdom()
         {
@@ -55,26 +57,33 @@ namespace MovieShop.Controllers
             return Content("id=" + id);
         }
 
-        public ActionResult Index(int? pageIndex, string sortBy)
+        public ActionResult Index()
         {
-            if (!pageIndex.HasValue)
-            {
-                pageIndex = 1;
-            }
+            var movies = GetMovies();
 
-            if (String.IsNullOrWhiteSpace(sortBy))
-            {
-                sortBy = "Name";
-            }
-
-            /**
-             * We can cal request as: /movies
-             * by default is going to show 1 and Name
-             * 
-             * So the following is also valid: /movies?pageIndex=4&sortBy=ReleaseDate
-             */
-            return Content(String.Format("PageIndex={0}&sortBy={1}", pageIndex, sortBy));
+            return View(movies);
         }
+
+        //public ActionResult Index(int? pageIndex, string sortBy)
+        //{
+        //    if (!pageIndex.HasValue)
+        //    {
+        //        pageIndex = 1;
+        //    }
+
+        //    if (String.IsNullOrWhiteSpace(sortBy))
+        //    {
+        //        sortBy = "Name";
+        //    }
+
+        //    /**
+        //     * We can cal request as: /movies
+        //     * by default is going to show 1 and Name
+        //     * 
+        //     * So the following is also valid: /movies?pageIndex=4&sortBy=ReleaseDate
+        //     */
+        //    return Content(String.Format("PageIndex={0}&sortBy={1}", pageIndex, sortBy));
+        //}
 
         /**
          * This was part of the routing implementation via hardcoding routes.
@@ -93,5 +102,20 @@ namespace MovieShop.Controllers
         {
             return Content(year + "/" + month);
         }
+
+        #endregion
+
+        #region Utilities
+
+        private IEnumerable<Movie> GetMovies()
+        {
+            return new List<Movie>
+            {
+                new Movie { Id = 1, Name = "Shrek" },
+                new Movie { Id = 2, Name = "Wall-e" }
+            };
+        }
+
+        #endregion
     }
 }
