@@ -14,13 +14,17 @@ namespace MovieShop
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "MoviesByReleaseDate",
-                url: "movies/released/{year}/{month}",
-                defaults: new { controller = "Movies", action = "ByReleaseDate" },
-                //constraints: new { year = @"\d{4}", month = @"\d{2}" }
-                constraints: new { year = @"2015|2016", month = @"\d{2}" }
-            );
+            //enable MVC attributes is good practice.
+            routes.MapMvcAttributeRoutes();
+
+            //This is not good practice because the magic strings. 
+            //routes.MapRoute(
+            //    name: "MoviesByReleaseDate",
+            //    url: "movies/released/{year}/{month}",
+            //    defaults: new { controller = "Movies", action = "ByReleaseDate" },
+            //    //constraints: new { year = @"\d{4}", month = @"\d{2}" }
+            //    constraints: new { year = @"2015|2016", month = @"\d{2}" }
+            //);
 
             routes.MapRoute(
                 name: "Default",

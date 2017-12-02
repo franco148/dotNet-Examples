@@ -15,6 +15,16 @@ ActionResult: This is like a general object of results. The specific ones would 
 
 
 
+Attribute Routes:
+- :regex
+- :range
+- :minlenght
+- :maxlenght
+- :int
+- :float
+- :guid
+
+
 # CODE SNIPETS
 - prop tab
 - mvcaction4 tab
