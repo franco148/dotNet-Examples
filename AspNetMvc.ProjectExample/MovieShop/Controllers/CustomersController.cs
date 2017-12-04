@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,39 +10,41 @@ namespace MovieShop.Controllers
 {
     public class CustomersController : Controller
     {
-        #region Controller Members
+        private ApplicationDbContext _context;
+
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
 
         // GET: Customers
         public ActionResult Index()
         {
-            var customers = GetCustomers();
+            /**
+             * When we have the following statement: var customers = _context.Customers;
+             * It does not query to database yet. Until customers variable is iterated.
+             * So If we get ToList as below, It will already query the database.
+             */
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
             return View(customers);
         }
 
         public ActionResult Details(int id)
         {
-            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
+            {
                 return HttpNotFound();
+            }
 
             return View(customer);
         }
-
-        #endregion
-
-        #region Utilities
-
-        private IEnumerable<Customer> GetCustomers()
-        {
-            return new List<Customer>
-            {
-                new Customer { Id = 1, Name = "James Franco" },
-                new Customer { Id = 2, Name = "Nataly Portman" }
-            };
-        }
-
-        #endregion
     }
 }

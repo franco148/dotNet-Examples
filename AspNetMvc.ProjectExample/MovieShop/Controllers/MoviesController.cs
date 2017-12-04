@@ -4,23 +4,29 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MovieShop.Models;
-using MovieShop.ViewModel;
+using MovieShop.ViewModels;
 
 namespace MovieShop.Controllers
 {
     public class MoviesController : Controller
     {
-        #region Controller Members
-
-        // GET: Movies/Ramdom
-        public ActionResult Ramdom()
+        // GET: Movies/Random
+        public ActionResult Random()
         {
-            var movie = new Movie() { Name = "Shrek!" };
+            var movie = new Movie { Name = "Shrek!" };
 
-            /**
-             * If i send the viewmodel information, it is not going to work because
-             * the view does model is MOVIE and it is not RandomMovieViewModel object.
-             */
+            //Use ViewData is not good practice actually.
+            //ViewData["Movie"] = movie;
+
+            //This is an improvement of the previous statement. But this is still not a good practice.
+            //ViewBag.Movie = movie;
+
+            //return View(movie);
+            //return Content("Hello world!!!");
+            //return HttpNotFound();
+            //return new EmptyResult();
+            //return RedirectToAction("Index", "Home", new {page = 1, sortBy = "n" });
+
             var customers = new List<Customer>
             {
                 new Customer { Name = "Customer 1" },
@@ -33,23 +39,7 @@ namespace MovieShop.Controllers
                 Customers = customers
             };
 
-            //We can send the object to be rendered.
             return View(viewModel);
-
-            //Another ways to return ActionResults
-            //return new ViewResult(), and return type should be ViewResult this is a good practice
-            //and easier way for testing.
-            /**
-             * Action Results are:
-             * ViewResult, PartialViewResult, ContentResult, RedirectResult, RedirectToRouteResult, JsonResult
-             * FileResult, HttpNotFoundResult and EmptyResult when method is void.
-             * 
-             * For Example:
-             * return Content("Content in the  browser.");
-             * return HttpNotFound();
-             * return new EmptyResult();
-             * return RedirectToAction("Index", "Home", new {page =1, sortBy=name});
-             */
         }
 
         public ActionResult Edit(int id)
@@ -57,13 +47,14 @@ namespace MovieShop.Controllers
             return Content("id=" + id);
         }
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
             var movies = GetMovies();
 
             return View(movies);
         }
 
+        //There was an issue here, becuase the ambiguos paths.
         //public ActionResult Index(int? pageIndex, string sortBy)
         //{
         //    if (!pageIndex.HasValue)
@@ -71,41 +62,20 @@ namespace MovieShop.Controllers
         //        pageIndex = 1;
         //    }
 
-        //    if (String.IsNullOrWhiteSpace(sortBy))
+        //    if (string.IsNullOrWhiteSpace(sortBy))
         //    {
         //        sortBy = "Name";
         //    }
 
-        //    /**
-        //     * We can cal request as: /movies
-        //     * by default is going to show 1 and Name
-        //     * 
-        //     * So the following is also valid: /movies?pageIndex=4&sortBy=ReleaseDate
-        //     */
-        //    return Content(String.Format("PageIndex={0}&sortBy={1}", pageIndex, sortBy));
+        //    return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
         //}
 
-        /**
-         * This was part of the routing implementation via hardcoding routes.
-         */
-        //public ActionResult ByReleaseDate(int year, int month)
-        //{
-        //    return Content(year + "/" + month);
-        //}
-
-        /**
-         * Some constraints are:
-         * min, max, minlenght, maxlenght, int, float, guid.
-         */
-        [Route("movies/released/{year:regex(\\d{4})}/{month:regex(\\d{2}):range(1, 12)}")]
-        public ActionResult ByReleaseMonth(int year, int month)
+        [Route("movies/released/{year}/{month:regex(\\d{4}):range(1, 12)}")]
+        public ActionResult ByReleaseDate(int year, int month)
         {
-            return Content(year + "/" + month);
+            return Content(year + " / " + month);
         }
 
-        #endregion
-
-        #region Utilities
 
         private IEnumerable<Movie> GetMovies()
         {
@@ -115,7 +85,5 @@ namespace MovieShop.Controllers
                 new Movie { Id = 2, Name = "Wall-e" }
             };
         }
-
-        #endregion
     }
 }
