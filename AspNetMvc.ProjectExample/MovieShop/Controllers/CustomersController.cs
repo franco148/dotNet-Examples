@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,7 +30,7 @@ namespace MovieShop.Controllers
              * It does not query to database yet. Until customers variable is iterated.
              * So If we get ToList as below, It will already query the database.
              */
-            var customers = _context.Customers.ToList();
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
             return View(customers);
         }
