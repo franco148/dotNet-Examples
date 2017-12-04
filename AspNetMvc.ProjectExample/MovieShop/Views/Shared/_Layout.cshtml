@@ -1,5 +1,4 @@
-﻿@model MovieShop.ViewModels.RandomMovieViewModel
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -11,12 +10,13 @@
 </head>
 <body>
 @*We can send parameters as second argument as follows.*@
-@Html.Partial("_NavBar", Model.Movie)
+@*@Html.Partial("_NavBar", Model.Movie)*@
+@Html.Partial("_NavBar")
 <div class="container body-content">
     @RenderBody()
     <hr/>
     <footer>
-        <p>&copy; @DateTime.Now.Year - eXtreme Corp Application</p>
+        <p>&copy; @DateTime.Now.Year - eXtreme Corp</p>
     </footer>
 </div>
 
