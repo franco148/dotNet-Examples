@@ -35,8 +35,13 @@ namespace MovieShop.Controllers
             return View(customers);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
+            if (!id.HasValue)
+            {
+                return HttpNotFound("Id is null, invalid parameter");
+            }
+
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
