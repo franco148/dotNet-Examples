@@ -202,6 +202,10 @@
     <Compile Include="Migrations\201712060534227_AddGenreModelAndUpdateMovieModel.Designer.cs">
       <DependentUpon>201712060534227_AddGenreModelAndUpdateMovieModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712060538424_DefineGenres.cs" />
+    <Compile Include="Migrations\201712060538424_DefineGenres.Designer.cs">
+      <DependentUpon>201712060538424_DefineGenres.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -314,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712060534227_AddGenreModelAndUpdateMovieModel.resx">
       <DependentUpon>201712060534227_AddGenreModelAndUpdateMovieModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712060538424_DefineGenres.resx">
+      <DependentUpon>201712060538424_DefineGenres.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
