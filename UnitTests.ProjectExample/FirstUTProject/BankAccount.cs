@@ -24,11 +24,47 @@ namespace FirstUTProject
             Balance += amount;
         }
 
-        public void Withdraw(int amount)
+        public bool Withdraw(int amount)
         {
-
+            if (Balance >= amount)
+            {
+                Balance -= amount;
+                return true;
+            }
+            return false;
         }
     }
+
+    [TestFixture]
+    public class DataDrivenTests
+    {
+        private BankAccount ba;
+
+        [SetUp]
+        public void SetUp()
+        {
+            ba = new BankAccount(100);
+        }
+
+        //Data-Driven Testing.
+        [Test]
+        [TestCase(50, true, 50)]
+        [TestCase(100, true, 0)]
+        [TestCase(1000, false, 100)]
+        public void TestMultipleWithdrawaScenarios(int amountToWithdraw, bool shouldSucceed, int expectedBalance)
+        {
+            var result = ba.Withdraw(amountToWithdraw);
+            //Warn.If(!result, "Failed for some reason");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(shouldSucceed));
+
+                Assert.That(expectedBalance, Is.EqualTo(ba.Balance));
+            });
+        }
+    }
+
 
     [TestFixture]
     public class BankAccountTests
