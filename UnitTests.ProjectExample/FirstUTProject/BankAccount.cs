@@ -18,7 +18,7 @@ namespace FirstUTProject
 
         public void Deposit(int amount)
         {
-
+            Balance += amount;
         }
 
         public void Withdraw(int amount)
@@ -30,10 +30,28 @@ namespace FirstUTProject
     [TestFixture]
     public class BankAccountTests
     {
+
+        private BankAccount ba;
+
+        [SetUp]
+        public void SetUp()
+        {
+            ba = new BankAccount(100);
+        }
+
         [Test]
         public void BankAccountShouldIncreaseOnPositiveDeposit()
         {
-            
+            // AAA: Arrange, Act and Assert.
+
+            // Arrange
+            //var ba = new BankAccount(100);
+
+            // Act
+            ba.Deposit(100);
+
+            // Assert
+            Assert.That(ba.Balance, Is.EqualTo(200));
         }
 
         [Test]
