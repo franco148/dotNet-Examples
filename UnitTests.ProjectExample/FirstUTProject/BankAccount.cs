@@ -18,6 +18,9 @@ namespace FirstUTProject
 
         public void Deposit(int amount)
         {
+            if (amount <= 0)
+                throw new ArgumentException("Deposit amout must be positive", nameof(amount));
+            
             Balance += amount;
         }
 
@@ -81,6 +84,19 @@ namespace FirstUTProject
                 Assert.That(ba.Balance, Is.EqualTo(0));
                 Assert.That(ba.Balance, Is.LessThan(1));
             });
+        }
+
+        [Test]
+        public void BankAccountShouldThrownOnNonPositiveAmount()
+        {
+            //Instead of this, we can implement this as lambda expression.
+            //ba.Deposit(-100);
+
+            var ex = Assert.Throws<ArgumentException>(() => ba.Deposit(-100));
+
+            //Typically a unit test should have only a assertion, but some cases we
+            //would need to verify something else. For example.
+            StringAssert.StartsWith("Deposit amout must be positive", ex.Message);
         }
 
     }
