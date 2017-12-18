@@ -68,6 +68,20 @@ namespace FirstUTProject
             Assert.Warn("I'm warning you");
         }
 
+        [Test]
+        public void MultipleAssertionUnitTest002()
+        {
+            ba.Withdraw(100);
+
+            //Assert.That(ba.Balance, Is.EqualTo(0));
+            //Assert.That(ba.Balance, Is.LessThan(1));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ba.Balance, Is.EqualTo(0));
+                Assert.That(ba.Balance, Is.LessThan(1));
+            });
+        }
 
     }
 }
