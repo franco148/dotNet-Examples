@@ -23,3 +23,5 @@
 	a) Moles is a 'detouring' framework by Microsoft.
 	b) Uses profiling feature of CLR to redirect method calls to custom delegates.
 	c) E.g., you can mock DateTime.Now
+6. Impromptu: Library that will lets us conform and dynamic object to any interface that we want which might sound
+   really weird.

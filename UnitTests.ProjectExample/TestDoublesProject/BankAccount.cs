@@ -1,22 +1,26 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ImpromptuInterface;
 
 namespace TestDoublesProject
 {
     public interface ILog
     {
-        void Write(string msg);
+        bool Write(string msg);
     }
 
     public class ConsoleLog : ILog
     {
-        public void Write(string msg)
+        public bool Write(string msg)
         {
             Console.WriteLine(msg);
+
+            return true;
         }
     }
 
@@ -33,17 +37,34 @@ namespace TestDoublesProject
 
         public void Deposit(int amount)
         {
-            log.Write($"Depositing {amount}");
-            Balance += amount;
+            if (log.Write($"Depositing {amount}"))
+            {
+                Balance += amount;
+            }
         }
     }
 
 
     public class NullLog : ILog
     {
-        public void Write(string msg)
+        public bool Write(string msg)
         {
-            
+            return true;
+        }
+    }
+
+    public class Null<T> : DynamicObject where T : class
+    {
+        public static T Instance => new Null<T>().ActLike<T>();
+
+        public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
+        {
+            result = Activator.CreateInstance
+                     (
+                         typeof(T).GetMethod(binder.Name).ReturnType
+                     );
+
+            return true;
         }
     }
 
@@ -68,6 +89,16 @@ namespace TestDoublesProject
         public void DepositUnitTestWithFake()
         {
             var log = new NullLog();
+            ba = new BankAccount(log) { Balance = 100 };
+            ba.Deposit(100);
+            
+            Assert.That(ba.Balance, Is.EqualTo(200));
+        }
+
+        [Test]
+        public void DepositUnitTestWithImpromptuInterface()
+        {
+            var log = Null<ILog>.Instance;
             ba = new BankAccount(log) { Balance = 100 };
             ba.Deposit(100);
             
