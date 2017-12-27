@@ -83,6 +83,36 @@ namespace TestDoublesProject
         }
     }
 
+    public class LogMock : ILog
+    {
+        private bool expectedResult;
+        public Dictionary<string, int> MethodCallCount;
+
+        public LogMock(bool expectedResult)
+        {
+            this.expectedResult = expectedResult;
+            MethodCallCount = new Dictionary<string, int>();
+        }
+
+        private void AddOrINcrement(string methodName)
+        {
+            if (MethodCallCount.ContainsKey(methodName))
+            {
+                MethodCallCount[methodName]++;
+            }
+            else
+            {
+                MethodCallCount.Add(methodName, 1);
+            }
+        }
+
+        public bool Write(string msg)
+        {
+            AddOrINcrement(nameof(Write));
+            return expectedResult;
+        }
+    }
+
     [TestFixture]
     public class BankAccountTests
     {
@@ -128,6 +158,23 @@ namespace TestDoublesProject
             ba.Deposit(100);
             
             Assert.That(ba.Balance, Is.EqualTo(200));
+        }
+
+        [Test]
+        public void DepositTestWithMock()
+        {
+            var log = new LogMock(true);
+            ba = new BankAccount(log) { Balance = 100 };
+            ba.Deposit(100);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ba.Balance, Is.EqualTo(200));
+                Assert.That(
+                    log.MethodCallCount[nameof(LogMock.Write)],
+                    Is.EqualTo(1)
+                );
+            });
         }
     }
 }
