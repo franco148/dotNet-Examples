@@ -68,6 +68,21 @@ namespace TestDoublesProject
         }
     }
 
+    public class NullLogWithResult : ILog
+    {
+        private bool expectedResult;
+
+        public NullLogWithResult(bool expectedResult)
+        {
+            this.expectedResult = expectedResult;
+        }
+
+        public bool Write(string msg)
+        {
+            return expectedResult;
+        }
+    }
+
     [TestFixture]
     public class BankAccountTests
     {
@@ -99,6 +114,16 @@ namespace TestDoublesProject
         public void DepositUnitTestWithImpromptuInterface()
         {
             var log = Null<ILog>.Instance;
+            ba = new BankAccount(log) { Balance = 100 };
+            ba.Deposit(100);
+            
+            Assert.That(ba.Balance, Is.EqualTo(200));
+        }
+
+        [Test]
+        public void DepositUnitTestWithStub()
+        {
+            var log = new NullLogWithResult(true);
             ba = new BankAccount(log) { Balance = 100 };
             ba.Deposit(100);
             
