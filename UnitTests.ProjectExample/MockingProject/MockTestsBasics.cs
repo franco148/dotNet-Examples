@@ -46,6 +46,32 @@ namespace MockingProject
         int SomeOtherProperty { get; set; }
     }
 
+    public delegate void AlienAbductionEventHandler(int galaxy, bool returned);
+
+    public interface IAnimal
+    {
+        event EventHandler FallsIll;
+        void Stumble();
+        event AlienAbductionEventHandler AbductedByAliens;
+    }
+
+    public class Doctor
+    {
+        public int TimesCured;
+        public int AbductionsObserved;
+
+        public Doctor(IAnimal animal)
+        {
+            animal.FallsIll += (sender, args) =>
+            {
+                Console.WriteLine("I will cure you!");
+                TimesCured++;
+            };
+
+            animal.AbductedByAliens += (galaxy, returned) => ++AbductionsObserved;
+        }
+    }
+
 
     [TestFixture]
     public class MethodSamples
@@ -243,6 +269,32 @@ namespace MockingProject
             iFoo.SomeOtherProperty = 123;
 
             Assert.That(mock.Object.SomeOtherProperty, Is.EqualTo(123));
+        }
+
+        [Test]
+        public void MockingEventsTests1()
+        {
+            var mock = new Mock<IAnimal>();
+            var doctor = new Doctor(mock.Object);
+
+            mock.Raise(
+                    a => a.FallsIll += null,
+                    new EventArgs()
+                );
+
+            Assert.That(doctor.TimesCured, Is.EqualTo(1));
+
+            mock.Setup(a => a.Stumble())
+                .Raises(a => a.FallsIll += null,
+                    new EventArgs());
+
+            mock.Object.Stumble();
+
+            Assert.That(doctor.TimesCured, Is.EqualTo(2));
+
+            mock.Raise(a => a.AbductedByAliens += null, 42, true);
+
+            Assert.That(doctor.AbductionsObserved, Is.EqualTo(1));
         }
 
     }
