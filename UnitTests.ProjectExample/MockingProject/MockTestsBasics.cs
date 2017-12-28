@@ -72,6 +72,22 @@ namespace MockingProject
         }
     }
 
+    public class Consumer
+    {
+        private IFoo foo;
+
+        public Consumer(IFoo foo)
+        {
+            this.foo = foo;
+        }
+
+        public void Hello()
+        {
+            foo.DoSomething("ping");
+            var name = foo.Name;
+            foo.SomeOtherProperty = 123;
+        }
+    }
 
     [TestFixture]
     public class MethodSamples
@@ -327,5 +343,21 @@ namespace MockingProject
             mock.Object.DoSomething("pong");
         }
 
+        [Test]
+        public void VerificationsTests1()
+        {
+            var mock = new Mock<IFoo>();
+            var consumer = new Consumer(mock.Object);
+
+            consumer.Hello();
+
+            mock.Verify(foo => foo.DoSomething("ping"), Times.AtLeastOnce);
+
+            mock.Verify(foo => foo.DoSomething("pong"), Times.Never);
+
+            mock.VerifyGet(foo => foo.Name);
+
+            mock.VerifySet(foo => foo.SomeOtherProperty = It.IsInRange(100, 200, Range.Inclusive));
+        }
     }
 }
