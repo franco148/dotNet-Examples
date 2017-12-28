@@ -297,5 +297,35 @@ namespace MockingProject
             Assert.That(doctor.AbductionsObserved, Is.EqualTo(1));
         }
 
+        [Test]
+        public void MoqCallbacksTests1()
+        {
+            var mock = new Mock<IFoo>();
+
+            int x = 0;
+            mock.Setup(foo => foo.DoSomething("ping"))
+                .Returns(true)
+                .Callback(() => x++);
+
+            mock.Object.DoSomething("ping");
+
+            Assert.That(x, Is.EqualTo(1));
+
+            mock.Setup(foo => foo.DoSomething(It.IsAny<string>()))
+                .Returns(true)
+                .Callback((string s) => x = +s.Length);
+
+            mock.Setup(foo => foo.DoSomething(It.IsAny<string>()))
+                .Returns(true)
+                .Callback<string>(s => x = +s.Length);
+
+            mock.Setup(foo => foo.DoSomething("pong"))
+                .Callback(() => Console.WriteLine("Before pong"))
+                .Returns(false)
+                .Callback(() => Console.WriteLine("after pong"));
+
+            mock.Object.DoSomething("pong");
+        }
+
     }
 }
