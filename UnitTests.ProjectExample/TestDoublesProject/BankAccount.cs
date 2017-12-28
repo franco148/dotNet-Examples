@@ -147,7 +147,7 @@ namespace TestDoublesProject
             ba = new BankAccount(log) { Balance = 100 };
             ba.Deposit(100);
             
-            Assert.That(ba.Balance, Is.EqualTo(200));
+            Assert.That(ba.Balance, Is.EqualTo(100));
         }
 
         [Test]
