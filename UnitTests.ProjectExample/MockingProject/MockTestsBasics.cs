@@ -172,5 +172,46 @@ namespace MockingProject
 
             //mock.Object.DoSomething("akdkdkh");
         }
+
+        [Test]
+        public void MockingPropertiesTests1()
+        {
+            var mock = new Mock<IFoo>();
+            mock.Setup(foo => foo.Name)
+                .Returns("bar");
+
+            mock.Object.Name = "will not be assigned";
+
+            Assert.That(mock.Object.Name, Is.EqualTo("bar"));
+
+            mock.Setup(foo => foo.SomeBaz.Name)
+                .Returns("hello");
+
+            Assert.That(mock.Object.SomeBaz.Name, Is.EqualTo("hello"));
+        }
+
+        [Test]
+        public void MockingPropertiesTests2()
+        {
+            var mock = new Mock<IFoo>();
+            var setterCalled = false;
+
+            mock.SetupSet(foo =>
+            {
+                foo.Name = It.IsAny<string>();
+            })
+            .Callback<string>(value =>
+            {
+                setterCalled = true;
+            });
+
+            mock.Object.Name = "def";
+            mock.VerifySet(foo =>
+            {
+                foo.Name = "def";
+            }, Times.AtLeastOnce);
+        }
+
+
     }
 }
