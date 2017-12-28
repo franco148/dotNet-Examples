@@ -112,5 +112,65 @@ namespace MockingProject
             var someOtherBar = new Bar();
             Assert.IsFalse(mock.Object.Submit(ref someOtherBar));
         }
+
+        [Test]
+        public void ExceptionsTests()
+        {
+            var mock = new Mock<IFoo>();
+
+            mock.Setup(foo => foo.ProcessString(It.IsAny<string>()))
+                .Returns((string s) => s.ToLowerInvariant());
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(mock.Object.ProcessString("ABC"), Is.EqualTo("abc"));
+            });
+        }
+
+        [Test]
+        public void ExceptionsAndReturnsTests1()
+        {
+            var mock = new Mock<IFoo>();
+            var calls = 0;
+
+            mock.Setup(foo => foo.GetCount())
+                .Returns(() => calls)
+                .Callback(() => ++calls);
+
+            mock.Object.GetCount();
+            mock.Object.GetCount();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(mock.Object.GetCount(), Is.EqualTo(2));
+            });
+        }
+
+        [Test]
+        public void ExceptionsAndReturnsTests2()
+        {
+            var mock = new Mock<IFoo>();
+            mock.Setup(foo => foo.DoSomething("kill"))
+                .Throws<InvalidOperationException>();
+
+            Assert.Throws<InvalidOperationException>(() =>
+                mock.Object.DoSomething("kill")
+            );
+        }
+
+        [Test]
+        public void ExceptionsAndReturnsTests3()
+        {
+            var mock = new Mock<IFoo>();
+            mock.Setup(foo => foo.DoSomething(null))
+                .Throws(new ArgumentException("cmd"));
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                mock.Object.DoSomething(null);
+            }, "cmd");
+
+            //mock.Object.DoSomething("akdkdkh");
+        }
     }
 }
