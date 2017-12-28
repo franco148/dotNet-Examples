@@ -212,6 +212,38 @@ namespace MockingProject
             }, Times.AtLeastOnce);
         }
 
+        [Test]
+        public void ValueTrackingTests1()
+        {
+            var mock = new Mock<IFoo>();
+
+            //mock.SetupAllProperties();
+            mock.SetupProperty(foo => foo.Name);
+
+            IFoo iFoo = mock.Object;
+            iFoo.Name = "abc";
+
+            Assert.That(mock.Object.Name, Is.EqualTo("abc"));
+        }
+
+        [Test]
+        public void ValueTrackingTests2()
+        {
+            var mock = new Mock<IFoo>();
+
+            mock.SetupAllProperties();
+            //mock.SetupProperty(foo => foo.Name);
+
+            IFoo iFoo = mock.Object;
+            iFoo.Name = "abc";
+
+            Assert.That(mock.Object.Name, Is.EqualTo("abc"));
+
+            iFoo.Name = "abcd";
+            iFoo.SomeOtherProperty = 123;
+
+            Assert.That(mock.Object.SomeOtherProperty, Is.EqualTo(123));
+        }
 
     }
 }
