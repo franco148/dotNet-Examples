@@ -359,5 +359,39 @@ namespace MockingProject
 
             mock.VerifySet(foo => foo.SomeOtherProperty = It.IsInRange(100, 200, Range.Inclusive));
         }
+
+        [Test]
+        public void BehaviorCustomizationTests1()
+        {
+            var mock = new Mock<IFoo>(MockBehavior.Strict);
+            mock.Setup(foo => foo.DoSomething("abc"))
+                .Returns(true);
+
+            mock.Object.DoSomething("abc");
+        }
+
+        [Test]
+        public void BehaviorCustomizationTests2()
+        {
+            var mock = new Mock<IFoo>
+            {
+                DefaultValue = DefaultValue.Mock
+            };
+
+            var baz = mock.Object.SomeBaz;
+            var bazMock = Mock.Get(baz);
+
+            bazMock.SetupGet(f => f.Name).Returns("abc");
+
+            var mockRepository = new MockRepository(MockBehavior.Strict)
+            {
+                DefaultValue = DefaultValue.Mock
+            };
+
+            var fooMock = mockRepository.Create<IFoo>();
+            var otherMock = mockRepository.Create<IBaz>(MockBehavior.Loose);
+
+            mockRepository.Verify();
+        }
     }
 }
