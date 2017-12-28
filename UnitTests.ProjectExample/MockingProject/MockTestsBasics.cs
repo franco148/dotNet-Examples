@@ -1,10 +1,30 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using NUnit.Framework;
 
 namespace MockingProject
 {
-    public class Bar
+    public class Bar 
     {
+        protected bool Equals(Bar other)
+        {
+            return string.Equals(Name, other.Name);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Bar) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Name != null ? Name.GetHashCode() : 0);
+        }
+
+        public string Name { get; set; }
     }
 
     public interface IBaz
@@ -62,6 +82,35 @@ namespace MockingProject
 
             mock.Setup(foo => foo.DoSomething(It.IsRegex("[a-z]+")))
                 .Returns(false);
+        }
+
+        [Test]
+        public void OutAndRefArguments()
+        {
+            var mock = new Mock<IFoo>();
+            var requiredOuput = "ok";
+            mock.Setup(foo => foo.TryParse("ping", out requiredOuput))
+                .Returns(true);
+
+            string result;
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(mock.Object.TryParse("ping", out result));
+                Assert.That(result, Is.EqualTo(requiredOuput));
+
+                var thisShouldBeFalse = mock.Object.TryParse("pong", out result);
+                Console.WriteLine(thisShouldBeFalse);
+                Console.WriteLine(result);
+            });
+
+            var bar = new Bar();
+            mock.Setup(foo => foo.Submit(ref bar)).Returns(true);
+
+            Assert.That(mock.Object.Submit(ref bar), Is.EqualTo(true));
+
+            var someOtherBar = new Bar();
+            Assert.IsFalse(mock.Object.Submit(ref someOtherBar));
         }
     }
 }
