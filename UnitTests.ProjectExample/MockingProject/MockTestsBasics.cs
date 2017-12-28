@@ -1,5 +1,6 @@
 ﻿using System;
 using Moq;
+using Moq.Protected;
 using NUnit.Framework;
 
 namespace MockingProject
@@ -87,6 +88,12 @@ namespace MockingProject
             var name = foo.Name;
             foo.SomeOtherProperty = 123;
         }
+    }
+
+    public abstract class Person
+    {
+        protected int SSN { get; set; }
+        protected abstract void Execute(string cmd);
     }
 
     [TestFixture]
@@ -392,6 +399,16 @@ namespace MockingProject
             var otherMock = mockRepository.Create<IBaz>(MockBehavior.Loose);
 
             mockRepository.Verify();
+        }
+
+        [Test]
+        public void ProtectedMembersTests1()
+        {
+            var mock = new Mock<Person>();
+            mock.Protected().SetupGet<int>("SSN").Returns(42);
+
+            mock.Protected()
+                .Setup<string>("Execute", ItExpr.IsAny<string>());
         }
     }
 }
