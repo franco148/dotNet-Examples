@@ -100,6 +100,19 @@ PM>
 
 ```
 
+#Data Annotations
+- [Required]
+- [StringLength(255)]
+- [Range(1, 10)]
+- [Compare("OtherProperty")]
+- [Phone]
+- [EmailAddress]
+- [Url]
+- [RegularExpression("...")]
+
+#Cross-site Request Forgery (CSRF)
+- To ensure that the request comes only from our application form.
+
 # CODE SNIPETS
 - prop tab
 - mvcaction4 tab
