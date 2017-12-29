@@ -29,6 +29,7 @@
         @Html.TextBoxFor(m => m.NumberInStock, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.NumberInStock)
     </div>
+    @*@Html.Hidden("Movie.Id", (Model.Movie != null) ? Model.Movie.Id : 0)*@
     @Html.HiddenFor(m => m.Id)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
