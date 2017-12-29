@@ -110,6 +110,9 @@ PM>
 - [Url]
 - [RegularExpression("...")]
 
+#Cross-site Request Forgery (CSRF)
+- To ensure that the request comes only from our application form.
+
 # CODE SNIPETS
 - prop tab
 - mvcaction4 tab
