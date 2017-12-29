@@ -63,5 +63,11 @@ namespace MovieShop.Controllers
 
             return View(viewModel);
         }
+
+        [HttpPost]
+        public ActionResult Create(Customer viewModel)
+        {
+            return View();
+        }
     }
 }
