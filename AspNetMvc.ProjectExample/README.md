@@ -100,6 +100,16 @@ PM>
 
 ```
 
+#Data Annotations
+- [Required]
+- [StringLength(255)]
+- [Range(1, 10)]
+- [Compare("OtherProperty")]
+- [Phone]
+- [EmailAddress]
+- [Url]
+- [RegularExpression("...")]
+
 # CODE SNIPETS
 - prop tab
 - mvcaction4 tab

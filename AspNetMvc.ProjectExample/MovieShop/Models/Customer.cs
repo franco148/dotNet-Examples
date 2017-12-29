@@ -10,7 +10,8 @@ namespace MovieShop.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        //When we want to customize the error message we need to add the property in required attribute.
+        [Required(ErrorMessage = "Please enter customer's name.")]
         [StringLength(255)]
         public string Name { get; set; }
 
