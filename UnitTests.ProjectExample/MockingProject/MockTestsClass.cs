@@ -44,5 +44,23 @@ namespace MockingProject
             ba.Deposit(100);
             Assert.That(ba.Balance, Is.EqualTo(200));
         }
+
+        [Test]
+        public void FirstTestToVoidMethods()
+        {
+            // var ba = new BankAccount(new ConsoleLog());
+            // ba.Deposit(125);
+
+            var loggerMock = new Mock<ILog>();
+            loggerMock.Setup(lg => lg.Write(It.IsAny<string>()))
+                .Callback((string msgToPrint) => {
+                    Console.WriteLine("MOCKEDDDDDDD................");
+                });
+
+            var ba = new BankAccount(loggerMock.Object);
+            ba.Deposit(555);
+
+            Assert.That(ba.Balance, Is.EqualTo(555));
+        }
     }
 }
