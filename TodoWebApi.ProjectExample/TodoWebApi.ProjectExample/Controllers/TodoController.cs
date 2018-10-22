@@ -9,7 +9,7 @@ using TodoWebApi.ProjectExample.Models;
 
 namespace TodoWebApi.ProjectExample.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/todos")]
     [ApiController]
     public class TodoController : ControllerBase
     {
@@ -27,19 +27,25 @@ namespace TodoWebApi.ProjectExample.Controllers
                 _context.SaveChanges();
             }
         }
-
+        
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<List<TodoItem>> Get()
         {
-            return new string[] { "value1", "value2" };
+            // return new string[] { "value1", "value2" };
+            return _context.TodoItems.ToList();
         }
 
         // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetTodo")]
+        public ActionResult<TodoItem> Get(int id)
         {
-            return "value";
+            var item = _context.TodoItems.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return item;
         }
 
         // POST api/<controller>
