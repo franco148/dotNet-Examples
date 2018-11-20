@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Data.Entity;
 using System.Web.Http;
 
 namespace MovieShop.Controllers.Api
@@ -23,7 +24,11 @@ namespace MovieShop.Controllers.Api
         // GET /api/movies
         public IHttpActionResult GetMovies()
         {
-            return Ok(_context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>));
+            var movies = _context.Movies
+                                 .Include(mbox => mbox.Genre)
+                                 .ToList()
+                                 .Select(Mapper.Map<Movie, MovieDto>);
+            return Ok(movies);
         }
 
         // GET /api/movies/1
