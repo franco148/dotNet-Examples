@@ -9,19 +9,20 @@
 
 </head>
 <body>
-@*We can send parameters as second argument as follows.*@
-@*@Html.Partial("_NavBar", Model.Movie)*@
-@Html.Partial("_NavBar")
-<div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - eXtreme Corp</p>
-    </footer>
-</div>
+    @*We can send parameters as second argument as follows.*@
+    @*@Html.Partial("_NavBar", Model.Movie)*@
+    @Html.Partial("_NavBar")
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - eXtreme Corp</p>
+        </footer>
+    </div>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/lib") @*//Consolidating previous libraries to only one.*@
+    @RenderSection("scripts", required: false)
 </body>
 </html>
