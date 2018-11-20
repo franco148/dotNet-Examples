@@ -13,7 +13,7 @@
 }
 
 <h2>Customers</h2>
-@if (!Model.Any())
+@*@if (!Model.Any())
 {
     <p>We don't have any customers yet.</p>
 }
@@ -43,14 +43,54 @@ else
             }
         </tbody>
     </table>
-}
+}*@
+
+<table id="customers" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Discount Rate</th>
+            <th>Membership Type</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    </tbody>
+</table>
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
 
-            $("#customers").DataTable();
+            // $("#customers").DataTable(); // When we need to provice a source point we need to use ajax as follows:
+            $("#customers").DataTable({
+                ajax: {
+                    url: "/api/customers",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, customer) {
+                            return "<a href='/customers/edit'" + customer.id + "'>" + customer.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
 
             //$("#customers .js-delete").on("click", function () { // We need to optimize this JQuery code because performance
             $("#customers").on("click", ".js-delete", function () {
