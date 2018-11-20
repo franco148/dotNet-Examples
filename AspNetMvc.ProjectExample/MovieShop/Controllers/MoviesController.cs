@@ -75,9 +75,13 @@ namespace MovieShop.Controllers
 
         public ViewResult Index()
         {
-            var movies = _context.Movies.Include(m => m.Genre).ToList();
+            if (User.IsInRole(RoleName.CanManageMovies))
+                return View("List");
 
-            return View(movies);
+            return View("ReadOnlyList");
+
+            //var movies = _context.Movies.Include(m => m.Genre).ToList();
+            //return View(movies);
         }
 
         //There was an issue here, becuase the ambiguos paths.
@@ -96,6 +100,7 @@ namespace MovieShop.Controllers
         //    return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
         //}
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult New()
         {
             var genres = _context.Genres.ToList();
