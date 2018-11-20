@@ -32,9 +32,13 @@ namespace MovieShop.Controllers
              * It does not query to database yet. Until customers variable is iterated.
              * So If we get ToList as below, It will already query the database.
              */
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
-            return View(customers);
+            // Since we are refactoring the call for loading data in the Table (plugin) - Fetch data from API not MVC controller.
+            //var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+
+            //return View(customers);
+
+            return View();
         }
 
         public ActionResult Details(int? id)
