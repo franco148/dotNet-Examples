@@ -18,7 +18,7 @@ namespace MovieShop.Models
         public bool IsSubscribedToNewsletter { get; set; }
 
         [Display(Name = "Date of Birth")]
-        [Min18YearsIfMember]
+        //[Min18YearsIfMember]
         public DateTime? Birthdate { get; set; }
 
         public MembershipType MembershipType { get; set; }
