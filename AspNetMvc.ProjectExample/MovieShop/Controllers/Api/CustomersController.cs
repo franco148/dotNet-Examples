@@ -95,6 +95,7 @@ namespace MovieShop.Controllers.Api
 
         // DELETE /api/customers/1
         // public void DeleteCustomer(int id)
+        [HttpDelete]
         public IHttpActionResult DeleteCustomer(int id)
         {
             var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
