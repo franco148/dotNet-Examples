@@ -24,5 +24,7 @@ namespace MovieShop.Dtos
         [Display(Name = "Genre")]
         [Required]
         public byte GenreId { get; set; }
+
+        public GenreDto Genre { get; set; }
     }
 }
