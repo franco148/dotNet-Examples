@@ -64,7 +64,7 @@ else
         $(document).ready(function () {
 
             // $("#customers").DataTable(); // When we need to provice a source point we need to use ajax as follows:
-            $("#customers").DataTable({
+            var table = $("#customers").DataTable({
                 ajax: {
                     url: "/api/customers",
                     dataSrc: ""
@@ -100,7 +100,8 @@ else
                             url: "/api/customers/" + button.attr("data-customer-id"),
                             method: "DELETE",
                             success: function () {
-                                button.parents("tr").remove();
+                                table.row(button.parents("tr")).remove().draw();
+                                // button.parents("tr").remove();
                             }
                         });
                     }
