@@ -11,6 +11,9 @@ using MovieShop.Dtos;
 
 namespace MovieShop.Controllers.Api
 {
+    // For applying generally authorization to all operations from a controller we need to use [Authorize] attribure, unless we
+    // need to apply it by method.
+    // [Authorize]
     public class CustomersController : ApiController
     {
         private ApplicationDbContext _context;
