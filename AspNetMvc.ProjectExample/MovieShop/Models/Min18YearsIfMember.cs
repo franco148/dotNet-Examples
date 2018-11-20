@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using MovieShop.Dtos;
 
 namespace MovieShop.Models
 {
@@ -11,7 +10,7 @@ namespace MovieShop.Models
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var customer = (CustomerDto) validationContext.ObjectInstance;
+            var customer = (Customer) validationContext.ObjectInstance;
 
             if (customer.MembershipTypeId == MembershipType.Unknown ||
                 customer.MembershipTypeId == MembershipType.PayAsYouGo)

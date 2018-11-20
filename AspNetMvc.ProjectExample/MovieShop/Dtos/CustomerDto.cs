@@ -18,7 +18,7 @@ namespace MovieShop.Dtos
 
         public bool IsSubscribedToNewsletter { get; set; }
 
-        [Min18YearsIfMember]
+        // [Min18YearsIfMember]
         public DateTime? Birthdate { get; set; }
         
         public byte MembershipTypeId { get; set; }
