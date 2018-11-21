@@ -10,9 +10,19 @@ namespace MovieShop.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        /**
+         * Steps for updating the model:
+         * 1. Update de domain model
+         * 2. Add-Migration <Name-of-migration>
+         * 3. Update-Database
+         */
         [Required]
         [StringLength(255)]
         public string DrivingLicense { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Phone { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
