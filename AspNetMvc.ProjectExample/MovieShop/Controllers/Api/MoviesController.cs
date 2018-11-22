@@ -24,7 +24,8 @@ namespace MovieShop.Controllers.Api
         // GET /api/movies
         public IHttpActionResult GetMovies(string query = null)
         {
-            var moviesQuery = _context.Movies.Include(mbox => mbox.Genre);
+            var moviesQuery = _context.Movies.Include(mbox => mbox.Genre)
+                                             .Where(m => m.NumberAvailable > 0);
 
             if (!string.IsNullOrWhiteSpace(query))
                 moviesQuery = moviesQuery.Where(m => m.Name.Contains(query));
