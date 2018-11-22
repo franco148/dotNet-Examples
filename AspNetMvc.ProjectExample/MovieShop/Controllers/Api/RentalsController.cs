@@ -21,7 +21,7 @@ namespace MovieShop.Controllers.Api
 
 
         [HttpPost]
-        public IHttpActionResult CreateNewRental(NewRentalDto rentalDto)
+        public IHttpActionResult CreateRentals(NewRentalDto rentalDto)
         {
 
             // We can analyze some scenarios, and based on that we are going to identify some

@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <button class="btn btn-primary"></button>
+    <button class="btn btn-primary">Save</button>
 </form>
 
 @section scripts
@@ -55,7 +55,9 @@
                 display: 'name',
                     source: customers
                 }).on("typeahead:select", function (e, customer) {
-                    vm.customerId = customer.Id;
+                    console.log('Selected Customer: ', customer);
+                    vm.customerId = customer.id;
+                    console.log('CustomerID: ', vm);
                 });
 
             var movies = new Bloodhound({
@@ -75,23 +77,25 @@
                     name: 'movies',
                     display: 'name',
                     source: movies
-                }).on("typeahead:select", function (e, movie) {
-                    $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
+            }).on("typeahead:select", function (e, movie) {
+                $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
 
-                    $("#movie").typeahead("val", "");
-                    vm.movieIds.push(movie.id);
-                });
+                $("#movie").typeahead("val", "");
+                vm.movieIds.push(movie.id);
+                console.log(vm);
+            });
 
             $("#newRental").submit(function (e) {
                 e.preventDefault();
 
                 $.ajax({
-                    url: "/api/newRentals",
+                    url: "/api/rentals",
                     method: "post",
                     data: vm
                 }).done(function () {
-
+                    toastr.success("Rentals successfully recorded.");
                 }).fail(function () {
+                    toastr.error("Something unexpected happened.");
                 });
             });
         })
