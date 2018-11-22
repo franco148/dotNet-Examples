@@ -264,6 +264,10 @@
     <Compile Include="Migrations\201811221519369_CreatedRentalDomainModel.Designer.cs">
       <DependentUpon>201811221519369_CreatedRentalDomainModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811221547357_AddNumberAvailablePropToMovie.cs" />
+    <Compile Include="Migrations\201811221547357_AddNumberAvailablePropToMovie.Designer.cs">
+      <DependentUpon>201811221547357_AddNumberAvailablePropToMovie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -577,6 +581,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811221519369_CreatedRentalDomainModel.resx">
       <DependentUpon>201811221519369_CreatedRentalDomainModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811221547357_AddNumberAvailablePropToMovie.resx">
+      <DependentUpon>201811221547357_AddNumberAvailablePropToMovie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
