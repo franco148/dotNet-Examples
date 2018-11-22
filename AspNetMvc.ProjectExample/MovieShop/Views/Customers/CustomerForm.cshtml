@@ -11,6 +11,8 @@
     @*@Html.ValidationSummary()*@
     @Html.ValidationSummary(true, "Please fix the following errors.")
     <div class="form-group">
+        @*LaberFor methods functionality is to send the request to the server and wait until it reponses, but it may not be
+        a good user experience, for that reason sometimes may be better to use AJAX for asynchonous operations.*@
         @Html.LabelFor(m => m.Customer.Name)
         @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Customer.Name)
