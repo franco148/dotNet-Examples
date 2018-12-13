@@ -25,7 +25,7 @@ namespace EntityFrameworkDbFirst
         public int AuthorID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public Nullable<CourseLevel> Level { get; set; }
+        public Nullable<EntityFrameworkDbFirst.Level> Level { get; set; }
         public short FullPrice { get; set; }
     
         public virtual Author Author { get; set; }

@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace EntityFrameworkDbFirst
 {
+
+    public enum Level : byte
+    {
+        Beginner = 1,
+        Intermediate = 2,
+        Advanced = 3
+    }
+
     class Program
     {
         static void Main(string[] args)
