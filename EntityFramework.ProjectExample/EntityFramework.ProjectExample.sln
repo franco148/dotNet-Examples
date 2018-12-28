@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkDbFirst", "EntityFrameworkDbFirst\EntityFrameworkDbFirst.csproj", "{A0352FC6-FE05-4355-8B7D-BBF8B98AE06B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCodeFirst", "EntityFrameworkCodeFirst\EntityFrameworkCodeFirst.csproj", "{73947670-3C62-4A07-B543-DD1A06642763}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A0352FC6-FE05-4355-8B7D-BBF8B98AE06B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0352FC6-FE05-4355-8B7D-BBF8B98AE06B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0352FC6-FE05-4355-8B7D-BBF8B98AE06B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73947670-3C62-4A07-B543-DD1A06642763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73947670-3C62-4A07-B543-DD1A06642763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73947670-3C62-4A07-B543-DD1A06642763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73947670-3C62-4A07-B543-DD1A06642763}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
