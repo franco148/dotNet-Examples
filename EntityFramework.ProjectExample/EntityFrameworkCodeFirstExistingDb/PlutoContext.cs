@@ -8,8 +8,10 @@ namespace EntityFrameworkCodeFirstExistingDb
     public partial class PlutoContext : DbContext
     {
         public PlutoContext()
-            : base("name=PlutoContext")
+            : base("PlutoCodeFirst")
         {
+            // The following did not work.
+            // : base("name=PlutoContext")
         }
 
         public virtual DbSet<Author> Authors { get; set; }
