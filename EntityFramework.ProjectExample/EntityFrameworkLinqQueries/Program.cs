@@ -163,5 +163,20 @@ namespace EntityFrameworkLinqQueries
             // Partitioning
             context.Courses.Skip(10).Take(10);
         }
+
+        private static void DeferredExecution()
+        {
+            var context = new PlutoContext();
+            var courses = context.Courses;
+            var filtered = courses.Where(c => c.Level == 1);
+            var sorted = filtered.OrderBy(c => c.Name);
+
+            //None of above code are executed, they are only extending the query.
+            //Try not to use custom properties because it will throw an exception unless you execute toList() or something
+            //similar first.
+
+            foreach (var c in courses)
+                Console.WriteLine(c.Name);
+        }
     }
 }
