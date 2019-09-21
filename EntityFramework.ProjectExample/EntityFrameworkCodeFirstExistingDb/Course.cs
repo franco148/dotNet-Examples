@@ -21,6 +21,8 @@ namespace EntityFrameworkCodeFirstExistingDb
 
         public string Description { get; set; }
 
+        public Category Category { get; set; }
+
         public int Level { get; set; }
 
         public float FullPrice { get; set; }
