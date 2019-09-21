@@ -11,6 +11,13 @@ namespace EntityFrameworkLinqQueries
     {
         static void Main(string[] args)
         {
+            
+
+            Console.ReadLine();
+        }
+
+        private static void LinqSyntax()
+        {
             var context = new PlutoContext();
 
             // LINQ Syntax
@@ -39,7 +46,7 @@ namespace EntityFrameworkLinqQueries
                 where c.Author.Id == 1
                 orderby c.Level descending, c.Name // orderding
                 // select c;
-                select new {Name = c.Name, Author = c.Author.Name}; // Projection
+                select new { Name = c.Name, Author = c.Author.Name }; // Projection
 
             // Grouping
             var queryGroupingCourses = from c in context.Courses
@@ -64,20 +71,97 @@ namespace EntityFrameworkLinqQueries
 
             // Joining
             var queryJoining1 = from c in context.Courses
-                join a in context.Authors on c.AuthorId equals a.Id 
+                join a in context.Authors on c.AuthorId equals a.Id
                 //select new {CourseName = c.Name, AuthorName = c.Author.Name};
                 select new { CourseName = c.Name, AuthorName = a.Name };
 
             var queryJoining2 = from a in context.Authors
                 join c in context.Courses on a.Id equals c.AuthorId into g
-                select new {AuthorName = a.Name, Courses = g.Count()};
+                select new { AuthorName = a.Name, Courses = g.Count() };
 
             foreach (var x in queryJoining2)
             {
                 Console.WriteLine("{0} ({1})", x.AuthorName, x.Courses);
             }
+        }
 
-            Console.ReadLine();
+        private static void ExtensionMethods()
+        {
+            var context = new PlutoContext();
+
+            var coursesLevel1 = context.Courses
+                .Where(c => c.Level == 1)
+                .OrderBy(c => c.Name)
+                .ThenByDescending(c => c.Level);
+
+            // Projection
+            var coursesProjection = context.Courses
+                .Where(c => c.Level == 1)
+                .OrderBy(c => c.Name)
+                .ThenByDescending(c => c.Level)
+                // .Select(c => new { CourseName = c.Name, AuthorName = c.Author.Name});
+                .Select(c => c.Tags);
+
+            foreach (var c in coursesProjection)
+            {
+                foreach (var tag in c)
+                {
+                    Console.WriteLine(tag.Name);
+                }
+            }
+
+            var tags = context.Courses
+                .Where(c => c.Level == 1)
+                .OrderBy(c => c.Name)
+                .ThenByDescending(c => c.Level)
+                // .Select(c => new { CourseName = c.Name, AuthorName = c.Author.Name});
+                .SelectMany(c => c.Tags); //.Distinc()
+
+            foreach (var t in tags)
+            {
+                Console.WriteLine(t.Name);
+            }
+
+            // Grouping
+            var groups = context.Courses.GroupBy(c => c.Level);
+
+            foreach (var group in groups)
+            {
+                Console.WriteLine("Key: " + group.Key);
+
+                foreach (var course in group)
+                {
+                    Console.WriteLine("\t" + course.Name);
+                }
+            }
+            
+            // Joining
+            context.Courses.Join(context.Authors, 
+                c => c.AuthorId, 
+                a => a.Id, (course, author) => new
+                {
+                    CourseName = course.Name,
+                    AuthorName = author.Name
+                });
+
+            // Group Joining
+            context.Authors.GroupJoin(context.Courses,
+                a => a.Id,
+                c => c.AuthorId,
+                (author, courses) => new
+                {
+                    AuthorName = author,
+                    Courses = courses.Count()
+                });
+
+            context.Authors.SelectMany(a => context.Courses,
+                (author, course) => new Course
+                {
+                    
+                });
+
+            // Partitioning
+            context.Courses.Skip(10).Take(10);
         }
     }
 }
