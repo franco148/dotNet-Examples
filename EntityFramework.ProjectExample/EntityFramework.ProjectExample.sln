@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCodeFirst", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCodeFirstExistingDb", "EntityFrameworkCodeFirstExistingDb\EntityFrameworkCodeFirstExistingDb.csproj", "{74504C14-9F17-4C31-A153-5822F47FC324}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCodeFirstDataAnnotations", "EntityFrameworkCodeFirstDataAnnotations\EntityFrameworkCodeFirstDataAnnotations.csproj", "{4C8079F6-E1A7-4ADE-AB4A-5EC3CAE42905}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{74504C14-9F17-4C31-A153-5822F47FC324}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74504C14-9F17-4C31-A153-5822F47FC324}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74504C14-9F17-4C31-A153-5822F47FC324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C8079F6-E1A7-4ADE-AB4A-5EC3CAE42905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C8079F6-E1A7-4ADE-AB4A-5EC3CAE42905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C8079F6-E1A7-4ADE-AB4A-5EC3CAE42905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C8079F6-E1A7-4ADE-AB4A-5EC3CAE42905}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
