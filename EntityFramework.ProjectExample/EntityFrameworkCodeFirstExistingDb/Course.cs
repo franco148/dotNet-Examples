@@ -5,7 +5,12 @@ namespace EntityFrameworkCodeFirstExistingDb
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    /// <summary>
+    /// MODIFICATION SCENARIOS
+    /// - Adding a new Property
+    /// - Modifying an existing property
+    /// - Deleting an existing property
+    /// </summary>
     [Table("Courses")]
     public partial class Course
     {
@@ -17,11 +22,13 @@ namespace EntityFrameworkCodeFirstExistingDb
 
         public int Id { get; set; }
 
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         public string Description { get; set; }
 
         public Category Category { get; set; }
+
+        //public DateTime? DatePublished { get; set; }
 
         public int Level { get; set; }
 
