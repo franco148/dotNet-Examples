@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+
 namespace EntityFrameworkCodeFirstExistingDb.Migrations
 {
     using System;
@@ -26,6 +28,16 @@ namespace EntityFrameworkCodeFirstExistingDb.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Authors.AddOrUpdate(a => a.Name,
+                new Author
+                {
+                    Name = "Author 1",
+                    Courses = new Collection<Course>()
+                    {
+                        new Course { Name = "Course for author 1", Description = "Description" }
+                    }
+                });
         }
     }
 }
