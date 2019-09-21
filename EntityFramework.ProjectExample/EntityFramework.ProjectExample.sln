@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCodeFirstExi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCodeFirstDataAnnotations", "EntityFrameworkCodeFirstDataAnnotations\EntityFrameworkCodeFirstDataAnnotations.csproj", "{4C8079F6-E1A7-4ADE-AB4A-5EC3CAE42905}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1489D54F-0764-4DC8-B944-8AB908A8BA14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkFluentAPI", "FluentAPI\EntityFrameworkFluentAPI.csproj", "{415B010B-3387-41C8-8649-98E423189105}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,10 @@ Global
 		{4C8079F6-E1A7-4ADE-AB4A-5EC3CAE42905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C8079F6-E1A7-4ADE-AB4A-5EC3CAE42905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C8079F6-E1A7-4ADE-AB4A-5EC3CAE42905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{415B010B-3387-41C8-8649-98E423189105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{415B010B-3387-41C8-8649-98E423189105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{415B010B-3387-41C8-8649-98E423189105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{415B010B-3387-41C8-8649-98E423189105}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
