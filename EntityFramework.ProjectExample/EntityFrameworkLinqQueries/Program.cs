@@ -178,5 +178,16 @@ namespace EntityFrameworkLinqQueries
             foreach (var c in courses)
                 Console.WriteLine(c.Name);
         }
+
+        private static void IqueryableInterface()
+        {
+            // Allows us to extend the queries without executing them.
+            var context = new PlutoContext();
+            IQueryable<Course> courses = context.Courses;
+            var filtered = courses.Where(c => c.Level == 1);
+
+            // In the SQL profiler we are going to see that WHERE clouse is taken
+            // into account as a whole query.
+        }
     }
 }
