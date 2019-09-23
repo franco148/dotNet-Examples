@@ -7,7 +7,7 @@ namespace EntityFrameworkRepositoryPattern.Persistence
     public class PlutoContext : DbContext
     {
         public PlutoContext()
-            : base("name=PlutoContext")
+            : base("PlutoQueries")
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
