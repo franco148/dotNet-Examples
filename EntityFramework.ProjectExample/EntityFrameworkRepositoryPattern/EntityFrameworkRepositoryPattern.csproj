@@ -58,6 +58,7 @@
     <Compile Include="Core\Repositories\IAuthorRepository.cs" />
     <Compile Include="Core\Repositories\ICourseRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CourseConfiguration.cs" />
     <Compile Include="Persistence\PlutoContext.cs" />
     <Compile Include="Persistence\Repositories\AuthorRepository.cs" />
