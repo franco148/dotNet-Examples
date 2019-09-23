@@ -55,4 +55,28 @@ How we are going to save the changes?
 An architecture should be independent of frameworks.
 
 ##### Implementation
+So we need ```IUnitOfWork``` interface. This is specific to our application, so it is going to expose varius repositories based on the entities we have in our applicaton, for example:
+
+```json
+IUnitOfWork
+
+ICourseRepository Courses { get; }
+IAuthorRepository Authors { get; }
+void Complete();
+```
+See that here we have a method called COMPLETE which indicates the end of a UnitOfWork. We could call this SAVE, but it may be better to call it COMPLETE because this is completion of a UnitOfWork.
+
+Next, we need a class to implement that ```UnitOfWork```. Now let's flip over to Visual Studio and see all these interfaces and their implementations in action.
+
+See the implementation of the project.
+
+
+
+
+
+
+
+
+
+
 
