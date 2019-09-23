@@ -57,7 +57,7 @@ An architecture should be independent of frameworks.
 ##### Implementation
 So we need ```IUnitOfWork``` interface. This is specific to our application, so it is going to expose varius repositories based on the entities we have in our applicaton, for example:
 
-```json
+```c#
 IUnitOfWork
 
 ICourseRepository Courses { get; }
