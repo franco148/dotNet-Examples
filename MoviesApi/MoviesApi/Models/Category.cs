@@ -10,6 +10,7 @@ namespace MoviesApi.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
         public DateTime CreationDate { get; set; }
     }
 }
