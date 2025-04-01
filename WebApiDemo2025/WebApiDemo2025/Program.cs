@@ -23,6 +23,16 @@ app.Use(async (HttpContext context, RequestDelegate next) => {
 // app.UseMiddleware<CustomMiddleware>();
 app.UseCustomMiddleware();
 
+app.UseWhen(
+    context => context.Request.Query.ContainsKey("username"),
+    app => {
+        app.Use(async (context, next) => {
+            await context.Response.WriteAsync("Hello from Middleware branch");
+            await next();
+        });
+    }
+);
+
 // Middleware 3
 app.Run(async (HttpContext context) => {
     await context.Response.WriteAsync("From middleware 3");
