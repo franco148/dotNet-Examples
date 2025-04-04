@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using MoviesApi.Models;
 using MoviesApi.Models.Dtos;
 using MoviesApi.Repositories;
 
@@ -51,6 +53,35 @@ namespace MoviesApi.Controllers
             var categoryDto = _mapper.Map<CategoryDto>(categoryItem);
 
             return Ok(categoryDto);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult CreateCategory([FromBody] CreateCategoryDto categoryDto)
+        {
+            if (!ModelState.IsValid || categoryDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (_categoryRepository.ExistCategory(categoryDto.Name))
+            {
+                ModelState.AddModelError("", "The category already exist");
+                return StatusCode(400, ModelState);
+            }
+
+            var category = _mapper.Map<Category>(categoryDto);
+            
+            if (!_categoryRepository.CreateCategory(category))
+            {
+                ModelState.AddModelError("", $"Something went wrong saving the item {category.Name}");
+                return StatusCode(400, ModelState);
+            }
+
+            return CreatedAtRoute("GetCategory", new { categoryId = category.Id }, category);
         }
     }
 }
