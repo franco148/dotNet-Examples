@@ -16,7 +16,8 @@ public class UserController : ControllerBase
     {
         string[] repsonseArray = new string [] {
             "test1",
-            "test2"
+            "test2",
+            testValue
         };
 
         return repsonseArray;
