@@ -1,4 +1,5 @@
 using DotnetApiDemo2025.Controllers;
+using DotnetApiDemo2025.Data;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -6,8 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    public UserController()
+    DataContextDapper _dapper;
+
+    public UserController(IConfiguration config)
     {        
+        // Console.WriteLine(config.GetConnectionString("DefaultConnection"));
+        _dapper = new DataContextDapper(config);
+    }
+
+    [HttpGet("TestConnection")]
+    public DateTime TestConnection() 
+    {
+        return _dapper.LoadDataSingle<DateTime>("SELECT GETDATE()");
     }
 
     [HttpGet("test/{testValue}")]
